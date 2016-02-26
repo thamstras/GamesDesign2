@@ -51,11 +51,11 @@ public class GatePickupScript : MonoBehaviour {
                     }
                     else
                     {
-                        Vector3 loc = rayHit.point;
+                        /*Vector3 loc = rayHit.point;
                         gate.transform.SetParent(null);
                         gate.transform.position = loc;
                         gate = null;
-                        haveGate = false;
+                        haveGate = false;*/
                     }
                 }
                 else
