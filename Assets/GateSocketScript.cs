@@ -32,9 +32,27 @@ public class GateSocketScript : MonoBehaviour {
     public GameObject unsocket()
     {
         GameObject temp = gate;
-        gate.transform.SetParent(transform.parent);
+        gate.transform.SetParent(null);
         gate = null;
         haveGate = false;
         return temp;
+    }
+
+    public bool socket(GameObject obj)
+    {
+        if (haveGate)                                   // If we already have a gate return false
+            return false;
+        if (!obj.CompareTag("GateObject"))              // if its not a gate return false
+            return false;
+        if (obj.transform.parent != null)   // if the gate is parented to something return false
+            return false;
+
+        obj.transform.SetParent(transform);
+        Vector3 loc = transform.TransformPoint(new Vector3 (0, 1, 0));
+        gate = obj;
+        gate.transform.position = loc;
+        haveGate = true;
+
+        return true;
     }
 }

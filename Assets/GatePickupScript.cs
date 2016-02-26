@@ -29,16 +29,48 @@ public class GatePickupScript : MonoBehaviour {
             RaycastHit rayHit = new RaycastHit();
             if (Physics.Raycast(ray, out rayHit, 100.0f))
             {
-                if (rayHit.collider.gameObject.tag == "GateSocket")
+                if (haveGate)
                 {
-                    GateSocketScript socket = rayHit.collider.GetComponent<GateSocketScript>();
-                    if (socket.hasGate())
+                    if (rayHit.collider.gameObject.tag == "GateSocket")
                     {
-                        GameObject gate = socket.unsocket();
-                        gate.transform.SetParent(transform);
-                        Vector3 loc = transform.TransformPoint(attach);
+                        GateSocketScript socket = rayHit.collider.GetComponent<GateSocketScript>();
+                        if (!socket.hasGate())
+                        {
+                            gate.transform.SetParent(null);
+                            if (socket.socket(gate))
+                            {
+                                gate = null;
+                                haveGate = false;
+                            } else
+                            {
+                                gate.transform.SetParent(transform);
+                                Vector3 loc = transform.TransformPoint(attach);
+                                gate.transform.position = loc;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Vector3 loc = rayHit.point;
+                        gate.transform.SetParent(null);
                         gate.transform.position = loc;
-                        haveGate = true;
+                        gate = null;
+                        haveGate = false;
+                    }
+                }
+                else
+                {
+                    if (rayHit.collider.gameObject.tag == "GateSocket")
+                    {
+                        GateSocketScript socket = rayHit.collider.GetComponent<GateSocketScript>();
+                        if (socket.hasGate())
+                        {
+                            gate = socket.unsocket();
+                            gate.transform.SetParent(transform);
+                            Vector3 loc = transform.TransformPoint(attach);
+                            gate.transform.position = loc;
+                            haveGate = true;
+                        }
                     }
                 }
             }
