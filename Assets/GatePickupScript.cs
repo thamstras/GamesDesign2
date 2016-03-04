@@ -27,7 +27,7 @@ public class GatePickupScript : MonoBehaviour {
             Vector3 direction = mainCam.transform.forward;
             Ray ray = new Ray(origin, direction);
             RaycastHit rayHit = new RaycastHit();
-            if (Physics.Raycast(ray, out rayHit, 100.0f))
+            if (Physics.Raycast(ray, out rayHit, 1.0f))
             {
                 if (haveGate)
                 {
