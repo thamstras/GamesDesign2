@@ -49,9 +49,12 @@ public class ConnectionLineDrawer : MonoBehaviour {
 	
 	}
 
-    public void toggle()
+    public void changeState(bool newState)
     {
-        on = !on;
+		if (newState == on)
+			return;
+
+        on = newState;
         Sprite sprite;
         if (on)
         {

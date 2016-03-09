@@ -3,7 +3,15 @@ using System.Collections;
 
 public class GateSocketScript : MonoBehaviour {
 
+	//public Transform inputA;
+	//public Transform inputB;
+	public bool output;
+
     bool haveGate = false;
+
+	public GateSocketScript inA;
+	public GateSocketScript inB;
+	public ConnectionLineDrawer outputLine;
 
     GameObject gate;
 
@@ -17,11 +25,29 @@ public class GateSocketScript : MonoBehaviour {
                 haveGate = true;
             }
         }
+		output = false;
+		//inA = inputA.GetComponent<GateSocketScript>();
+		//inB = inputB.GetComponent<GateSocketScript>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (haveGate)
+		{
+			bool inputA = false;
+			bool inputB = false;
+
+			if (inA != null)
+				inputA = inA.output;
+			if (inB != null)
+				inputB = inB.output;
+
+			output = gate.transform.GetComponent<GateObjectScript>().doGate(inputA, inputB);
+		} else
+		{
+			output = false;
+		}
+		outputLine.changeState(output);
 	}
 
     public bool hasGate()

@@ -13,7 +13,7 @@ public class InteractScript : MonoBehaviour {
         if (Input.GetButtonDown("Interact"))
         {
             ConnectionLineDrawer con = FindObjectOfType<ConnectionLineDrawer>();
-            con.toggle();
+            //con.toggle();
         }
     }
 }
