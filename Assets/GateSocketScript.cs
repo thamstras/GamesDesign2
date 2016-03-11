@@ -7,6 +7,8 @@ public class GateSocketScript : MonoBehaviour {
 	//public Transform inputB;
 	public bool output;
 
+    public bool locked;
+
     bool haveGate = false;
 
 	public GateSocketScript inA;
@@ -47,7 +49,8 @@ public class GateSocketScript : MonoBehaviour {
 		{
 			output = false;
 		}
-		outputLine.changeState(output);
+        if (outputLine != null)
+		    outputLine.changeState(output);
 	}
 
     public bool hasGate()
@@ -57,6 +60,8 @@ public class GateSocketScript : MonoBehaviour {
 
     public GameObject unsocket()
     {
+        if (locked)
+            return null;
         GameObject temp = gate;
         gate.transform.SetParent(null);
         gate = null;
@@ -71,6 +76,8 @@ public class GateSocketScript : MonoBehaviour {
         if (!obj.CompareTag("GateObject"))              // if its not a gate return false
             return false;
         if (obj.transform.parent != null)   // if the gate is parented to something return false
+            return false;
+        if (locked)
             return false;
 
         obj.transform.SetParent(transform);

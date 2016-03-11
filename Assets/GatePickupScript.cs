@@ -66,10 +66,13 @@ public class GatePickupScript : MonoBehaviour {
                         if (socket.hasGate())
                         {
                             gate = socket.unsocket();
-                            gate.transform.SetParent(transform);
-                            Vector3 loc = transform.TransformPoint(attach);
-                            gate.transform.position = loc;
-                            haveGate = true;
+                            if (gate != null)
+                            {
+                                gate.transform.SetParent(transform);
+                                Vector3 loc = transform.TransformPoint(attach);
+                                gate.transform.position = loc;
+                                haveGate = true;
+                            }
                         }
                     }
                 }
