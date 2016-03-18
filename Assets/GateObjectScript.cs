@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum GateTypes { AND_GATE, OR_GATE, NOT_GATE, XOR_GATE, TRUE, FALSE };
+public enum GateTypes { AND_GATE, OR_GATE, NOT_GATE, XOR_GATE, TRUE, FALSE, BUTTON };
 
 public class GateObjectScript : MonoBehaviour {
 
 	public GateTypes gateType;
 
-	// Use this for initialization
-	void Start () {
-	
+    private buttonScript button;
+
+    // Use this for initialization
+    void Start() {
+        if (gateType == GateTypes.BUTTON)
+        {
+            button = transform.GetComponentInChildren<buttonScript>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -33,6 +38,8 @@ public class GateObjectScript : MonoBehaviour {
 				return true;
 			case GateTypes.FALSE:
 				return false;
+            case GateTypes.BUTTON:
+                return button.state;
 			default:
 				return false;
 		}
