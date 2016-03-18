@@ -84,6 +84,7 @@ public class GateSocketScript : MonoBehaviour {
         Vector3 loc = transform.TransformPoint(new Vector3 (0, 1, 0));
         gate = obj;
         gate.transform.position = loc;
+        gate.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         haveGate = true;
 
         return true;
