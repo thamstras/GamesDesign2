@@ -14,6 +14,8 @@ public class GateObjectScript : MonoBehaviour {
         if (gateType == GateTypes.BUTTON)
         {
             button = transform.GetComponentInChildren<buttonScript>();
+			if (button == null)
+				Debug.LogError("BUTTON DIDN'T FIND IT'S BUTTON!!!");
         }
 	}
 	
